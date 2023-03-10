@@ -1,0 +1,92 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: url('background.jpg') no-repeat center/cover;
+}
+
+/* 計算機 CSS */
+div {
+    height: 640px;
+    padding: 20px;
+    background-image: linear-gradient(180deg, rgb(173, 245, 205)60%, rgb(11, 210, 217));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    opacity: 0.9;
+    box-shadow:
+        0px 0px 10px rgba(0, 255, 255, 0.8),
+        0px 0px 30px rgba(0, 255, 255, 0.5),
+        0px 0px 70px rgba(0, 255, 255, 0.3),
+        0px 0px 150px rgba(0, 255, 255, 0.1);
+}
+
+table {
+    font-size: 50px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-top: 10px;
+    font-family: 'Concert One', cursive;
+}
+
+.blank {
+    background-color: rgb(226, 254, 252);
+    border-radius: 10px;
+    box-shadow: 0px 10px 10px rgba(0, 240, 232, 0.5);
+}
+
+#text {
+    text-align: right;
+    max-width: 400px;
+}
+
+td {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* 數字按鍵文字顏色 */
+.math-button {
+    color: white;
+}
+
+/* 數字按鍵滑動特效 */
+.math-button:hover {
+    background-color: aqua;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+/* 數字按鍵點擊特效 */
+.math-button:active {
+    background-color: rgb(0, 235, 255);
+    transform: scale(0.9);
+    box-shadow: none;
+}
+
+/* 計算按鍵文字顏色 */
+.count-button {
+    color: #636;
+}
+
+/* 計算按鍵滑動特效 */
+.count-button:hover {
+    background-color: rgb(0, 190, 255);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 計算按鍵點擊特效 */
+.count-button:active {
+    background-color: rgb(0, 170, 235);
+    transform: scale(0.9);
+    box-shadow: none;
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>森林計算機</title>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./calculator.css">
+</head>
+
+<body>
+    <div>
+        <table>
+            <tr>
+                <td class="blank" colspan="4" id="text">0</td>
+            </tr>
+            <tr>
+                <td class="count-button">c</td>
+                <td class="count-button">/</td>
+                <td class="count-button">*</td>
+                <td class="count-button">-</td>
+            </tr>
+            <tr>
+                <td class="math-button">7</td>
+                <td class="math-button">8</td>
+                <td class="math-button">9</td>
+                <td class="count-button" rowspan="2">+</td>
+            </tr>
+            <tr>
+                <td class="math-button">4</td>
+                <td class="math-button">5</td>
+                <td class="math-button">6</td>
+            </tr>
+            <tr>
+                <td class="math-button">1</td>
+                <td class="math-button">2</td>
+                <td class="math-button">3</td>
+                <td class="count-button" rowspan="2">=</td>
+            </tr>
+            <tr>
+                <td class="math-button" colspan="2">0</td>
+                <td class="math-button">.</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const text = document.getElementById('text');
+        // 不是id = text的東西
+        const btns = document.querySelectorAll('td:not(#text)');
+        let lastText;
+        for (const btn of btns) {
+            btn.onclick = () => {
+                const btnText = btn.innerText;
+                console.log(btnText);
+                // 輸入 = 的時候
+                if (btnText == '=') {
+                    text.innerText = eval(text.innerText);
+                    lastText = '=';
+                }
+
+                else if (text.innerText.length >= 15) {
+                    text.innerText = '';
+                }
+
+                // 輸入 c 的時候
+                else if (btnText == 'c') {
+                    text.innerText = '0';
+                }
+                else {
+                    // 都不是那些按鍵的情況下，這時候先輸入 - (負數)
+                    if (text.innerText == '-' && isNaN(parseInt(btnText))) return;
+
+                    // 輸入 = 之後，我先輸入數字和我先輸入符號
+                    else if (lastText == '=') {
+                        if (!isNaN(parseInt(btnText))) {
+                            text.innerText = btnText;
+                            lastText = '';
+                        }
+                        else {
+                            text.innerText += btnText;
+                            lastText = '';
+                        }
+                    }
+                    // 如果計算機的值不等於 0
+                    else if (text.innerText != '0') {
+                        // 不能重複輸入兩次符號
+                        if (isNaN(parseInt(btnText)) && isNaN(parseInt(text.innerText[text.innerText.length - 1]))) return;
+                        else {
+                            text.innerText += btnText;
+                        }
+                    }
+
+                    // 開始不能輸入 + * / 三種符號
+                    else if (!['+', '*', '/'].includes(btnText)) {
+                        text.innerText = btnText;
+                    }
+                }
+            }
+        }
+
+        document.onkeydown = event => {
+            const btnText = event.key;
+            console.log(text.innerText.length);
+            if (btnText == 'Enter' || btnText == '=') {
+                text.innerText = eval(text.innerText);
+                lastText = '=';
+            }
+            else if (btnText == 'c') {
+                text.innerText = '0';
+            }
+
+            // 刪除最後一個數字
+            else if (btnText == 'Backspace') {
+                const strText = text.innerText.split('');
+                strText.splice(text.innerText.length - 1, 1, '');
+                text.innerText = strText.join('');
+            }
+
+            else if (text.innerText.length >= 15) {
+                text.innerText = '';
+            }
+
+            else if (btnText == 'Escape') {
+                text.innerText = '0';
+            }
+
+            // 不能輸入 計算機以外的東西
+            else if (isNaN(parseInt(btnText)) && (event.key != '/' && event.key != '*' && event.key != '-' && event.key != '+' && event.key != '.' && event.key != 'Enter' && event.key != 'Escape') && event.key != 'backspace') return;
+            else {
+                if (text.innerText == '-' && isNaN(parseInt(btnText))) return
+
+                else if (lastText == '=') {
+                    if (!isNaN(parseInt(btnText))) {
+                        text.innerText = btnText;
+                        lastText = '';
+                    }
+                    else {
+                        text.innerText += btnText;
+                        lastText = '';
+                    }
+                }
+                else if (text.innerText != '0') {
+                    if (isNaN(parseInt(btnText)) && isNaN(parseInt(text.innerText[text.innerText.length - 1]))) return;
+                    else {
+                        text.innerText += btnText;
+                    }
+                }
+                else if (!['+', '*', '/'].includes(btnText)) {
+                    text.innerText = btnText;
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
